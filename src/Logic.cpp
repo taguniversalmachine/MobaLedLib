@@ -52,6 +52,42 @@
  Weitere Logic Funktionen
  - Mux/Demux (Kann ueber Logic Funktionen gebildet werden)
 
+ English Translation:
+ -----------------
+
+ Logic Functions:
+ -----------------
+
+ Logic function with which you can link several inputs.
+ The result is stored in an input variable.
+ The logical expressions can be linked with AND, OR and NOT.
+ The disjunctive normal form: (A AND B) OR (A AND NOT C) OR D is used for this.
+ Implicit parentheses, the AND can be replaced by a comma. OR and NOT
+ are special numbers which cannot occur as inputs (SI_0 / SI_1)
+ Example: Logic0(12, 3, NOT, 4, OR, 31, 8)
+ The logic function can also be used to build demux functions
+
+ Multiple use of the outputs of Loigic functions
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ~~~
+ It is NOT possible to use the output of a logic function more than once because of this
+ states are lost. The inputs have 4 different states
+   INP_OFF B00000000
+   INP_ON B00000011
+   INP_TURNED_ON B00000001
+   INP_TURNED_OFF B00000010
+                              ^
+ The logic function only sets the last bit.
+ The previous state is stored in the bit with a value of 2.
+ This bit is set at the end of an update loop.
+ If several logic functions write to the same variable, then the last state
+ not set correctly => INP_TURNED_ON / _OFF is lost ;-(
+
+ => A separate output variable must be used for each Logic() function
+
+ Other logic functions
+ - Mux/Demux (can be built using logic functions)
+
+
  Revision History:
  ~~~~~~~~~~~~~~~~~
  05.09.18:  - Started
@@ -60,6 +96,7 @@
                 Example: ENABLE  17, 12 AND 13
                          DISABLE 17, 12 AND 13
               DISABLE is equal to: ENABLE NOT
+ Aug-7-2022   English Translation             
 */
 
 #include "MobaLedLib.h"
